@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import statsmodels.tsa.stattools as sm
-import matplotlib.pyplot as plt
 from pykalman import KalmanFilter
 import statsmodels.api as smf
 import yfinance as yf
