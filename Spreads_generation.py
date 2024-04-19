@@ -72,4 +72,22 @@ test_spread.index = pd.to_datetime(test_data.index)
 #train_spread.to_csv('train_spread.csv', index=True)
 #test_spread.to_csv('test_spread.csv', index=True)
 
+# Spread base csv
+'''
+train_spread_base = pd.DataFrame()
+test_spread_base = pd.DataFrame()
+for i, pairs in enumerate(cointegration_pairs):
+    x = train_df[pairs[0]]
+    y = train_df[pairs[1]]
+    state_means = KalmanFilterRegression(KalmanFilterAverage(x), KalmanFilterAverage(y))
+    hedge_ratio = abs(state_means[:, 0])
+    train_spread_base[f"Pair {str(i+1)}"] = x * abs(hedge_ratio) + y
 
+    x = test_df[pairs[0]]
+    y = test_df[pairs[1]]
+    state_means = KalmanFilterRegression(KalmanFilterAverage(x), KalmanFilterAverage(y))
+    hedge_ratio = abs(state_means[:, 0])
+    test_spread_base[f"Pair {str(i+1)}"] = x * abs(hedge_ratio) + y
+train_spread_base.to_csv("train_spread_base.csv")
+test_spread_base.to_csv("test_spread_base.csv")
+'''
