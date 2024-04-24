@@ -35,8 +35,8 @@ train.length = nrow(train.spread_scaled); train.length
 # DCC_GARCH Training ----
 # eGARCH follows a t-dist, DCC_GARCH follows multi-variate t-dist
 library(rmgarch)
-garch.spec = ugarchspec(variance.model = list(model="eGARCH", garchOrder=c(1,2)),
-                        mean.model = list(armaOrder=c(1,2),include.mean=FALSE),distribution.model = "std")
+garch.spec = ugarchspec(variance.model = list(model="eGARCH", garchOrder=c(1,1)),
+                        mean.model = list(armaOrder=c(1,1),include.mean=FALSE),distribution.model = "std")
 dcc_spec = dccspec(uspec = multispec(replicate(garch.spec, n=pairs.no)),
                    dccOrder = c(1,1), model="DCC", distribution = "mvt")
 dcc_GARCH = dccfit(spec = dcc_spec, data = train.spread_scaled) # Takes around 2h to run
