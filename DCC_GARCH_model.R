@@ -22,7 +22,7 @@ pairs.no = length(pair_description$pair_name); pairs.no
 # Training spreads pre-processing ------
 ## First date: 1/30/2012, Last date: 8/5/2021
 library(xts)
-train.pair_spread = read.csv("C:\\Users\\user\\Desktop\\Year 3 Sem 2\\FINA 4380\\train_pair_spread.csv", row.names=1)
+train.pair_spread = read.csv("C:\\Users\\user\\Desktop\\Year 3 Sem 2\\FINA 4380\\train_spread.csv", row.names=1)
 train.pair_spread = as.xts(train.pair_spread) # Convert spreads to time series
 train.half_life = read.csv("C:\\Users\\user\\Desktop\\Year 3 Sem 2\\FINA 4380\\train_half_life.csv", row.names=1)
 for (col in 1:pairs.no){
@@ -35,8 +35,8 @@ train.length = nrow(train.spread_scaled); train.length
 # DCC_GARCH Training ----
 # eGARCH follows a t-dist, DCC_GARCH follows multi-variate t-dist
 library(rmgarch)
-garch.spec = ugarchspec(variance.model = list(model="eGARCH", garchOrder=c(1,1)),
-                        mean.model = list(armaOrder=c(1,1),include.mean=FALSE),distribution.model = "std")
+garch.spec = ugarchspec(variance.model = list(model="eGARCH", garchOrder=c(1,2)),
+                        mean.model = list(armaOrder=c(1,2),include.mean=FALSE),distribution.model = "std")
 dcc_spec = dccspec(uspec = multispec(replicate(garch.spec, n=pairs.no)),
                    dccOrder = c(1,1), model="DCC", distribution = "mvt")
 dcc_GARCH = dccfit(spec = dcc_spec, data = train.spread_scaled) # Takes around 2h to run
